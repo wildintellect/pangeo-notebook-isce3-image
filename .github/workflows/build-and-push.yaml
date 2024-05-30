@@ -4,7 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - "**" # Push to any branch
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
 
 env:
   REGISTRY: public.ecr.aws
@@ -53,5 +56,9 @@ jobs:
     - name: Push to Amazon ECR
       run: |
         short_sha=$(echo ${{ github.sha }} | cut -c1-12)
-        docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
         docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${short_sha}
+
+    - name: Push latest tag to Amazon ECR from main branch
+      if: github.ref == 'refs/heads/main'
+      run: |
+        docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
