@@ -6,6 +6,8 @@ Docker container based on pangeo-notebook used on VEDA JupyterHub.
 
 The notebooks in `image-tests/` folder are used to test the docker image. They are run by `repo2docker` github action during the build process and the output is compared to the existing notebooks. You can read more about how the tests are run in the [repo2docker github action documentation](https://github.com/jupyterhub/repo2docker-action?tab=readme-ov-file#testing-the-built-image).
 
+Note that the test notebooks, by default, do not have access to private resources (eg. private S3 buckets).
+
 ### Adding new tests
 
 To add new tests, create new notebooks or add to the existing notebooks in `image-tests/` and generate the output of the notebooks by running the following command:
