@@ -1,4 +1,4 @@
-FROM pangeo/pangeo-notebook:2024.04.05
+FROM pangeo/pangeo-notebook:2024.06.02
 
 USER root
 
