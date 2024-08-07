@@ -3,6 +3,10 @@ channels:
   - defaults
 dependencies:
   - ipykernel
+  # Dependencies for VS Code IDE
+  - code-server>=3.2
+  - jupyter-vscode-proxy
+  # Pip dependencies
   - pip
   - pip:
     - git+https://github.com/MAAP-Project/stac_ipyleaflet.git@0.3.3#egg-info=stac_ipyleaflet
