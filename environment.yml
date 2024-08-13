@@ -17,4 +17,4 @@ variables:
   TITILER_ENDPOINT: 'https://openveda.cloud/api/raster'
   STAC_CATALOG_NAME: 'VEDA STAC'
   STAC_CATALOG_URL: 'https://openveda.cloud/api/stac'
-  STAC_BROWSER_URL: 'http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com/'
+  STAC_BROWSER_URL: 'https://openveda.cloud/'
