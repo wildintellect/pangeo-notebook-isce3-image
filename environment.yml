@@ -9,7 +9,7 @@ dependencies:
   - openssh
   - pip
   - pip:
-    - git+https://github.com/MAAP-Project/stac_ipyleaflet.git@0.3.3#egg-info=stac_ipyleaflet
+    - git+https://github.com/MAAP-Project/stac_ipyleaflet.git@0.3.6
     - jupyter-sshd-proxy
     - jupyterlab-bxplorer
 variables:
