@@ -1,4 +1,3 @@
-
 # Updating 2i2c's Singleuser Image for VEDA JupyterHubs
 
 JupyterHub configuration has the concept of a `singleuser` image that is the 
@@ -46,7 +45,7 @@ variables:
 
 ## Test the Image on staging
 
-1. Once the changes are pushed to a remote branch on this repo, GH actions will automatically run the image building pipeline. You can watch this in the [GH actions tab](https://github.com/NASA-IMPACT/veda-jh-environments/actions)
+1. Once the changes are pushed to a remote branch on this repo, GH actions will automatically run the image building pipeline. You can watch this in the [GH actions tab](https://github.com/NASA-IMPACT/pangeo-notebook-veda-image/actions)
 
 2. Look for the workflow named `Build and push container image` for the most recent commit to your branch. Click into the workflow run to see more details on what is happening.
 
@@ -81,6 +80,22 @@ Note the full image URI will be `public.ecr.aws/nasa-veda/pangeo-notebook-veda-i
 
 1. If you haven't already [clone DS's fork](https://github.com/developmentseed/infrastructure/) of [2i2c's insfrastructure repo](https://github.com/2i2c-org/infrastructure)
 
-2. In `config/clusters/nasa-veda/common.values.yaml`, update the profile choice correspoding to the Pangeo image in the `singleuser` image block with the new image URI from the GH action run we got in the previous step. We can refer to the past [PR over here](https://github.com/2i2c-org/infrastructure/commit/1f39db71972fa420a24b8dc2dab0eec7d3e05d25) to see how this looks. It's recommended to update the staging hub's image first. And then once that's verified to work, update the production hub's image.
+2. Before updating the image in the infrastructure repo, create a tag in the pangeo-notebook-veda-image repository. The tag should be of the form `YYYY.MM.DD-vX`, where:
+   - `YYYY.MM.DD` should match the tag of the pangeo-notebook base image
+   - `vX` is the version number, starting with `v1` and incrementing for subsequent versions on the same date
 
-3. After the PR is created, reviewed and merged, 2i2c's CI/CD process will automatically deploy the image to staging and production hubs as needed.
+   For example: `2024.06.02-v1`
+
+   To create and push the tag:
+   ```bash
+   git tag 2024.06.02-v1
+   git push origin 2024.06.02-v1
+   ```
+
+3. Once the tag is pushed, GH actions will automatically run the image building pipeline. You can watch this in the [GH actions tab](https://github.com/NASA-IMPACT/pangeo-notebook-veda-image/actions). Once the image is build and pushed to ECR, we can update the singleuser image in the infrastructure repo.
+
+4. In `config/clusters/nasa-veda/common.values.yaml`, update the profile choice corresponding to the Pangeo image in the `singleuser` image block and open a PR to [2i2c's insfrastructure repo](https://github.com/2i2c-org/infrastructure). Use the new image URI with the tag we just created. For example: `public.ecr.aws/nasa-veda/pangeo-notebook-veda-image:2024.06.02-v1`.
+
+It's recommended to update the staging hub's image first. Once that's verified to work, update the production hub's image.
+
+5. After the PR is created, reviewed and merged, 2i2c's CI/CD process will automatically deploy the image to staging and production hubs as needed.
