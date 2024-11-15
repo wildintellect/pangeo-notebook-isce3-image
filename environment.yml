@@ -3,6 +3,7 @@ channels:
   - nodefaults
 dependencies:
   - ipykernel
+  - isce3
   # Dependencies for VS Code IDE
   - code-server>=3.2
   - jupyter-vscode-proxy
